@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WhatsApp - Adit</title>
+    <link rel="icon" href="Adit-icon.png" type="image/x-icon" />
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+        margin: 0;
+        padding: 0;
+        background-color: #1a1a1a; /* Latar belakang halaman */
+        color: #00ffea; /* Warna teks */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Tinggi 100% dari viewport */
+        flex-direction: column; /* Arah kolom untuk footer */
+      }
+      .whatsapp-form {
+        background-color: #2a2a2a; /* Latar belakang form */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(255, 0, 255, 0.5); /* Bayangan ungu */
+        width: 300px; /* Lebar form */
+        position: relative;
+      }
+      h2 {
+        text-align: center;
+        color: #ff00ff; /* Warna teks judul */
+        text-shadow: 0 0 10px #ff00ff; /* Efek glow */
+      }
+      input[type="text"],
+      textarea {
+        width: 100%; /* Lebar penuh */
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ff00ff; /* Border ungu */
+        border-radius: 4px;
+        background-color: #2a2a2a; /* Latar belakang kolom input */
+        color: #00ffea; /* Warna teks cyan */
+        resize: none; /* Nonaktifkan resize manual */
+        overflow: hidden; /* Sembunyikan overflow */
+        box-sizing: border-box; /* Pastikan padding termasuk dalam lebar */
+        transition: background-color 0.3s, border-color 0.3s; /* Transisi halus */
+      }
+      /* Menonaktifkan autofill */
+      input:-webkit-autofill,
+      textarea:-webkit-autofill {
+        background-color: #2a2a2a !important; /* Warna latar belakang */
+        color: #00ffea !important; /* Warna teks */
+      }
+      textarea {
+        height: 80px; /* Tinggi tetap untuk textarea */
+        overflow-y: hidden; /* Sembunyikan scrollbar */
+      }
+      input[type="text"]:focus,
+      textarea:focus {
+        outline: none; /* Nonaktifkan outline default */
+        background-color: #2a2a2a; /* Tetap menggunakan warna latar belakang yang sama */
+        border-color: #ff00ff; /* Tetap menggunakan warna border yang sama */
+      }
+      button {
+        background-color: #ff00ff; /* Warna tombol ungu */
+        color: black; /* Warna teks tombol */
+        border: none;
+        border-radius: 4px;
+        padding: 10px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+      button:disabled {
+        background-color: #666; /* Warna tombol saat dinonaktifkan */
+        cursor: not-allowed; /* Kursor saat tombol dinonaktifkan */
+      }
+      button:hover:not(:disabled) {
+        background-color: #e6007e; /* Warna tombol saat hover */
+      }
+      /* Popup untuk menampilkan pesan yang terkirim */
+      .popup {
+        display: none; /* Tersembunyi secara default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8); /* Latar belakang transparan */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000; /* Pastikan popup di atas konten lainnya */
+      }
+      .popup-content {
+        background-color: #2a2a2a; /* Latar belakang konten popup */
+        padding: 20px;
+        border-radius: 8px;
+        width: 300px;
+        position: relative;
+        box-shadow: 0 4px 10px rgba(255, 0, 255, 0.5); /* Bayangan ungu */
+      }
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #ff00ff; /* Warna teks tombol close */
+        cursor: pointer;
+        font-size: 20px;
+      }
+      .message-history {
+        margin-top: 10px;
+        color: #00ffea; /* Warna teks untuk riwayat pesan */
+      }
+      footer {
+        text-align: center; /* Rata tengah */
+        margin-top: 20px; /* Jarak atas */
+        color: #00ffea; /* Warna teks footer */
+        font-size: 14px; /* Ukuran font */
+      }
+      .warning-message {
+        color: #ff0000; /* Warna teks untuk peringatan */
+        display: none; /* Tersembunyi secara default */
+        margin-top: 10px; /* Jarak atas */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="whatsapp-form">
+      <h2>Kirim Pesan WhatsApp</h2>
+      <input
+        type="text"
+        id="name"
+        placeholder="Nama Anda"
+        required
+        autocomplete="off"
+        oninput="checkInput()"
+      />
+      <textarea
+        id="message"
+        rows="4"
+        placeholder="Pesan Anda"
+        required
+        autocomplete="off"
+        oninput="checkInput()"
+      ></textarea>
+      <button id="sendButton" onclick="sendMessage()" disabled>Kirim</button>
+      <div class="warning-message" id="warningMessage">
+        * Semua kolom harus diisi
+      </div>
+    </div>
+
+    <!-- Popup untuk pesan terkirim -->
+    <div class="popup" id="messagePopup">
+      <div class="popup-content">
+        <span class="close-btn" onclick="closePopup()">✖</span>
+        <h2>Pesan Terkirim!</h2>
+        <div class="message-history" id="messageHistory"></div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Copyright 2024 | Bagas Aditya</p>
+    </footer>
+
+    <script>
+      function checkInput() {
+        const name = document.getElementById("name").value;
+        const message = document.getElementById("message").value;
+        const sendButton = document.getElementById("sendButton");
+        const warningMessage = document.getElementById("warningMessage");
+
+        // Mengaktifkan tombol kirim jika semua kolom diisi
+        sendButton.disabled = !(name && message);
+
+        // Menampilkan atau menyembunyikan pesan peringatan
+        if (!name || !message) {
+          warningMessage.style.display = "block"; // Tampilkan pesan peringatan
+        } else {
+          warningMessage.style.display = "none"; // Sembunyikan pesan peringatan
+        }
+      }
+
+      function sendMessage() {
+        const name = document.getElementById("name").value;
+        const message = document.getElementById("message").value;
+
+        // Mengkodekan nama dan pesan untuk URL
+        const encodedName = encodeURIComponent(name);
+        const encodedMessage = encodeURIComponent(message);
+
+        // Membuat URL WhatsApp
+        const url = `https://wa.me/6281464435341?text=Hai%20Nama%20saya :%20${encodedName}.%0A%0A${encodedMessage}`;
+
+        // Membuka WhatsApp
+        window.open(url, "_blank");
+
+        // Menampilkan popup setelah mengirim pesan
+        const messagePopup = document.getElementById("messagePopup");
+        const messageHistory = document.getElementById("messageHistory");
+
+        // Menghapus riwayat pesan sebelumnya
+        messageHistory.innerHTML = ""; // Reset riwayat pesan
+
+        // Mendapatkan waktu terkirim
+        const now = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        };
+        const formattedDate = now.toLocaleDateString("id-ID", options);
+
+        // Menambahkan riwayat pesan baru sesuai dengan kode yang Anda berikan
+        messageHistory.innerHTML = `
+            <strong>Nama :</strong> ${name} <br>
+            <strong>Pesan :</strong> ${message} <br><br>
+            <em>Pesan terkirim Pada : ${formattedDate}</em><br><br>`;
+
+        // Menampilkan popup
+        messagePopup.style.display = "flex";
+
+        // Mengosongkan form setelah mengirim pesan
+        document.getElementById("name").value = "";
+        document.getElementById("message").value = "";
+
+        // Memeriksa kembali input untuk mengaktifkan tombol
+        checkInput();
+      }
+
+      function closePopup() {
+        const messagePopup = document.getElementById("messagePopup");
+        messagePopup.style.display = "none"; // Menyembunyikan popup
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halaman Sedang Dalam Perbaikan</title>
+    <link rel="icon" href="Adit-icon.png" type="image/x-icon" />
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+        margin: 0;
+        padding: 0;
+        background-color: #1a1a1a; /* Latar belakang halaman */
+        color: #00ffea; /* Warna teks */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Tinggi 100% dari viewport */
+        flex-direction: column; /* Arah kolom untuk footer */
+      }
+      h2 {
+        text-align: center;
+        color: #ff00ff; /* Warna teks judul */
+        text-shadow: 0 0 10px #ff00ff; /* Efek glow */
+        margin-bottom: 20px; /* Jarak bawah */
+      }
+      .loader {
+        border: 8px solid #2a2a2a; /* Warna latar belakang loader */
+        border-top: 8px solid #ff00ff; /* Warna bagian atas loader */
+        border-radius: 50%;
+        width: 60px; /* Diameter loader */
+        height: 60px; /* Diameter loader */
+        animation: spin 1s linear infinite; /* Animasi berputar */
+        position: relative; /* Memungkinkan penempatan konten di dalam */
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .auto-close-message {
+        text-align: center;
+        margin: 20px 0; /* Jarak atas dan bawah */
+        color: #00ffea; /* Warna teks pesan */
+        font-size: 16px; /* Ukuran font pesan */
+      }
+      .highlight {
+        color: #ff0000; /* Warna merah untuk teks */
+      }
+      .countdown {
+        color: #ff00ff; /* Warna teks hitungan mundur */
+        font-size: 18px; /* Ukuran font */
+        text-align: center; /* Rata tengah */
+        margin-top: 10px; /* Jarak atas */
+      }
+      footer {
+        text-align: center; /* Rata tengah */
+        margin-top: 20px; /* Jarak atas */
+        color: #00ffea; /* Warna teks footer */
+        font-size: 14px; /* Ukuran font */
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Halaman Sedang Dalam Perbaikan</h2>
+    <div class="loader"></div>
+    <div class="auto-close-message">
+      Halaman akan tertutup secara otomatis dalam waktu 20 detik
+      <i class="highlight">Jika kamu tidak kembali ke halaman awal.</i>
+    </div>
+    <div class="countdown" id="countdown">Hitungan mundur dalam: 20</div>
+    <!-- Hitungan mundur -->
+    <footer>
+      <p>Copyright 2024 | Bagas Aditya</p>
+    </footer>
+
+    <script>
+      // Hitungan mundur
+      let timeLeft = 20; // Waktu hitung mundur dalam detik
+      const countdownElement = document.getElementById("countdown");
+
+      const countdownInterval = setInterval(function () {
+        timeLeft--;
+        countdownElement.textContent = `Hitungan mundur dalam: ${timeLeft}`; // Memperbarui teks hitungan mundur
+
+        if (timeLeft <= 0) {
+          clearInterval(countdownInterval); // Menghentikan interval
+          window.close(); // Menutup halaman
+        }
+      }, 1000); // Hitung mundur setiap 1000ms = 1 detik
+    </script>
+  </body>
+</html>

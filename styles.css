@@ -1,0 +1,330 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #0f0f0f;
+  color: #00ffea;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem;
+  background-color: #111111e9;
+  border-bottom: 2px solid #ff00ff;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.nav-logo {
+  margin-left: 0.8rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff00ff;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+}
+
+.nav-menu li {
+  margin: 0 1rem;
+}
+
+.nav-menu li a {
+  color: #00ffea;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.nav-menu li a:hover {
+  color: #ff00ff;
+}
+
+/* Toggle Icon */
+.nav-toggle {
+  display: none;
+  font-size: 1.5rem;
+  color: #00ffea;
+  cursor: pointer;
+}
+
+/* Header */
+#header {
+  background-color: #0f0f0f; /* Mengubah background menjadi sama dengan halaman */
+  padding: 5rem 0; /* Mengurangi padding untuk tampilan yang lebih rapi */
+  text-align: center;
+  color: #00ffea; /* Mengubah warna teks agar kontras dengan latar belakang */
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Menyusun konten di tengah */
+}
+
+.profile-image {
+  width: 150px; /* Ukuran gambar profil */
+  height: 150px; /* Ukuran gambar profil */
+  border-radius: 50%; /* Membuat gambar menjadi lingkaran */
+  border: 3px solid #ff00ff; /* Tambahkan border untuk efek */
+  margin-bottom: 1rem; /* Jarak antara gambar dan nama */
+  margin-top: 1rem;
+}
+
+#header h1 {
+  font-size: 2.5rem; /* Mengubah ukuran font untuk nama */
+  margin: 0; /* Menghapus margin default */
+}
+
+#header p {
+  font-size: 1.2rem; /* Mengubah ukuran font untuk deskripsi */
+  margin-top: 0.5rem; /* Jarak antara nama dan deskripsi */
+}
+
+#header h1 {
+  font-size: 3rem;
+  text-shadow: 0 0 10px #000;
+}
+
+.section {
+  padding: 2rem 2rem;
+  text-align: center;
+}
+/* Footer */
+.footer-social {
+  display: flex;
+  justify-content: center; /* Menyusun ikon di tengah */
+  margin-top: 1rem; /* Jarak antara teks dan ikon */
+}
+
+.footer-social a {
+  color: #00ffea; /* Warna ikon */
+  margin: 0 1rem; /* Jarak antar ikon */
+  font-size: 1.5rem; /* Ukuran ikon */
+  transition: color 0.3s; /* Transisi warna saat hover */
+}
+
+.footer-social a:hover {
+  color: #ff00ff; /* Warna ikon saat hover */
+}
+
+footer {
+  background-color: #111;
+  text-align: center;
+  padding: 1rem;
+  color: #00ffea;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .nav-menu {
+    position: absolute;
+    top: 53px;
+    left: -100%;
+    width: 50%;
+    height: calc(100vh - 20px);
+    background-color: #111;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+  }
+  /* Nav Footer */
+  .nav-footer {
+    display: flex;
+    justify-content: center; /* Menyusun ikon di tengah */
+    margin-top: 1rem; /* Jarak antara menu dan footer */
+    padding: 1rem 0; /* Menambah padding atas dan bawah untuk footer */
+    border-top: 1px solid #ff00ff; /* Menambahkan garis pemisah */
+  }
+
+  .nav-footer a {
+    color: #00ffea; /* Warna ikon */
+    margin: 0 1rem; /* Jarak antar ikon */
+    font-size: 1.5rem; /* Ukuran ikon */
+    transition: color 0.3s; /* Transisi warna saat hover */
+  }
+
+  .nav-footer a:hover {
+    color: #ff00ff; /* warna icon saat di click dit */
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-menu li {
+    margin: 1.5rem 0;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  #header {
+    padding: 5rem 0;
+  }
+
+  #header h1 {
+    font-size: 2rem;
+  }
+}
+/* Style untuk ikon burger dan close */
+.nav-toggle i {
+  color: #00ffea;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+}
+
+#openIcon {
+  display: block;
+}
+
+#closeIcon {
+  display: none;
+}
+
+/* Ketika menu aktif, tampilkan ikon close */
+.nav-menu.active ~ .nav-toggle #openIcon {
+  display: none;
+}
+
+.nav-menu.active ~ .nav-toggle #closeIcon {
+  display: block;
+}
+/* sertifikat */
+.certificate-gallery {
+  display: flex; /* Mengubah menjadi flexbox */
+  flex-wrap: wrap; /* Membungkus elemen ketika ruang tidak cukup */
+  justify-content: center; /* Mengatur agar elemen berada di tengah */
+  gap: 1rem; /* Jarak antara gambar */
+  margin-top: 2rem; /* Jarak atas untuk memisahkan dari teks di atas */
+}
+
+.certificate-img {
+  width: 300px; /* Mengatur lebar gambar sertifikat (landscape) */
+  height: 200px; /* Mengatur tinggi gambar sertifikat */
+  border-radius: 8px; /* Membuat sudut gambar menjadi bulat */
+  border: 2px solid #ff00ff; /* Menambahkan border berwarna */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Memberikan efek bayangan */
+  transition: transform 0.3s; /* Efek transisi saat hover */
+}
+
+.certificate-img:hover {
+  transform: scale(1.05); /* Zoom gambar saat hover */
+}
+/* Popup */
+.popup {
+  display: none; /* Sembunyikan popup secara default */
+  position: fixed; /* Posisi tetap */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Latar belakang gelap */
+  justify-content: center; /* Pusatkan konten */
+  align-items: center; /* Pusatkan konten */
+  z-index: 2000; /* Di atas elemen lainnya */
+}
+
+.popup-img {
+  max-width: 90%; /* Ukuran maksimal gambar */
+  max-height: 90%; /* Ukuran maksimal gambar */
+  border: 2px solid #ff00ff; /* Border untuk gambar */
+}
+
+.popup-close {
+  position: absolute; /* Posisi absolut untuk close button */
+  top: 20px;
+  right: 20px;
+  font-size: 2rem; /* Ukuran font untuk tombol close */
+  color: #ff00ff; /* Warna tombol close */
+  cursor: pointer; /* Cursor pointer saat hover */
+}
+/* Styles for Skills Section */
+.skills-list {
+  list-style-type: none; /* Menghilangkan bullet points */
+  padding: 0; /* Menghilangkan padding */
+  text-align: left; /* Rata kiri untuk teks */
+}
+
+.skills-list li {
+  background-color: #222; /* Warna latar belakang item */
+  color: #00ffea; /* Warna teks */
+  margin: 0.5rem 0; /* Jarak antar item */
+  padding: 0.5rem; /* Padding dalam item */
+  border-radius: 5px; /* Membuat sudut item menjadi bulat */
+  transition: background-color 0.3s; /* Transisi saat hover */
+}
+/* Styles for Experience Section */
+.experience-item {
+  background-color: #222; /* Warna latar belakang item pengalaman */
+  color: #00ffea; /* Warna teks */
+  margin: 1rem 0; /* Jarak antar item */
+  padding: 1rem; /* Padding dalam item */
+  border-radius: 5px; /* Membuat sudut item menjadi bulat */
+  transition: background-color 0.3s; /* Transisi saat hover */
+}
+
+.experience-item h3 {
+  margin: 0.5rem 0; /* Margin atas dan bawah untuk judul */
+}
+
+.experience-item p {
+  margin: 0.5rem 0; /* Margin atas dan bawah untuk paragraf */
+}
+/* Styles for Education Section */
+.education {
+  background-color: #1a1a1a; /* Warna latar belakang yang berbeda */
+  padding: 2rem; /* Padding untuk ruang di dalam section */
+  border-radius: 8px; /* Sudut melengkung untuk background */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Bayangan untuk memberi kedalaman */
+  margin: 1rem 0; /* Jarak atas dan bawah */
+}
+
+.education-item {
+  display: flex; /* Menyusun logo dan detail pendidikan dalam satu baris */
+  align-items: center; /* Menyelaraskan item secara vertikal */
+  background-color: #2a2a2a; /* Warna latar belakang item pendidikan */
+  color: #ffffff; /* Warna teks untuk kontras */
+  margin: 1rem 0; /* Jarak antar item */
+  padding: 1rem; /* Padding dalam item */
+  border-radius: 5px; /* Membuat sudut item menjadi bulat */
+  transition: background-color 0.3s; /* Transisi saat hover */
+}
+
+.institution-logo {
+  width: 60px; /* Ukuran lebar logo */
+  height: 60px; /* Ukuran tinggi logo */
+  border-radius: 5px; /* Membuat sudut logo menjadi bulat */
+  margin-right: 1rem; /* Jarak antara logo dan detail pendidikan */
+}
+
+.education-details h4 {
+  margin: 0.5rem 0; /* Margin atas dan bawah untuk judul */
+  font-size: 1rem; /* Ukuran font judul */
+}
+
+.education-details h4 {
+  margin: 0rem 0; /* Margin atas dan bawah untuk paragraf */
+  font-size: 1rem; /* Ukuran font paragraf */
+}
+
+/* Menambahkan efek hover pada item pendidikan */
+.education-item:hover {
+  background-color: #ff00ff00; /* Warna saat hover */
+  cursor: pointer; /* Mengubah kursor saat hover */
+}
